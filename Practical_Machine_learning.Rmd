@@ -127,7 +127,7 @@ fancyRpartPlot(modFitA1)
 
 ```{r}
 predictionsA1 <- predict(modFitA1,myTesting,type='class')
-cmtree<- confusionMatrix(predictionsA1, myTesting$classe)
+cmtree<- confusionMatrix(predictionsA1, as.factor(myTesting$classe))
 cmtree
 ```
 
@@ -139,7 +139,7 @@ plot(cmtree$table, col = cmtree$byClass, main = paste("Decision Tree Confusion M
 
 ```{r}
 set.seed(12345)
-modFitB1 <- randomForest(classe ~ ., data=myTraining)
+modFitB1 <- randomForest(classe ~ ., data=myTraining,na.action=na.roughfix)
 predictionB1 <- predict(modFitB1, myTesting, type = "class")
 cmrf <- confusionMatrix(predictionB1, myTesting$classe)
 cmrf
